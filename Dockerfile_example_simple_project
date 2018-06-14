@@ -1,0 +1,13 @@
+FROM python:3.6-slim
+
+RUN mkdir -p /www/api && chmod 755 /www/api
+
+EXPOSE 8000
+
+VOLUME /www/api/
+
+ADD . /django-requests-monitoring
+
+RUN pip install -e /django-requests-monitoring
+
+CMD python /www/api/simple_project/manage.py runserver 0.0.0.0:8000

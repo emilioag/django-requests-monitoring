@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  simple-project:
+    build:
+      context: ./
+      dockerfile: Dockerfile_example_simple_project
+    environment:
+      STATSD_HOST: stastd
+    volumes:
+      - ./examples/simple_project/:/www/api/simple_project/
+    ports:
+      - 8000:8000
+    networks:
+      - simple-project
+
+  stastd:
+    image: prom/statsd-exporter
+    container_name: statsd
+    expose:
+      - 9125
+      - 9102
+    ports:
+      - 9102:9102
+      - 9125:9125
+      - 9125:9125/udp
+    networks:
+      - simple-project
+
+networks:
+  simple-project:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 192.168.200.0/24
