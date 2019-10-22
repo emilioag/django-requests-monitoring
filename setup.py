@@ -24,7 +24,7 @@ setup(
     keywords='django statsd, monitoring',
     packages=find_packages(exclude=['contrib', 'docs', 'tests', 'examples']),
     install_requires=[
-        'Django==2.0',
+        'Django==2.0.12',
         'datadog==0.21.0'
     ],
     extras_require={
